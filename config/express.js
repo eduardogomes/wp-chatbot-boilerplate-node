@@ -5,22 +5,12 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     compress = require('compression'),
     methodOverride = require('method-override'),
-    handleBars = require('express-handlebars'), 
     xHub = require('express-x-hub');
 
 module.exports = function(app, config) {
   var env = config.env || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
-
-  app.engine('handlebars', handleBars({
-    layoutsDir: config.root + '/app/views/layouts/',
-    defaultLayout: 'main',
-    partialsDir: [config.root + '/app/views/partials/']
-  }));
-
-  app.set('views', config.root + '/app/views');
-  app.set('view engine', 'handlebars');
 
   app.use(favicon(config.root + '/public/img/favicon.ico'));
 
