@@ -77,6 +77,7 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
 NODE_ENV=development
 PAGE_ACCESS_TOKEN=Bearer <access token, created on step 6 in the format "Bearer TOKEN">
 VERIFY_TOKEN= <a unique string to identity your bot, e.g.: dev-workshop-bot-token>
+APP_SECRET= <a hexadecimal value created by workplace, used to sign the requests to secure they are coming from Facebook servers>
 PORT=5000
 ```
 
@@ -85,6 +86,7 @@ PORT=5000
 ```
 heroku config:set PAGE_ACCESS_TOKEN=Bearer <access token, the same that was set in the ```.env``` file>
 heroku config:set VERIFY_TOKEN=<a unique string to identity your bot, e.g.: dev-workshop-bot-token, the same that was set in the ```.env``` file>
+heroku config:set APP_SECRET=<a hexadecimal value created by workplace, e.g.: e04879d854fc4d27b6765534dd8ca3e2, the same that was set in the ```.env``` file>
 ```
 
 8. Configure the messaging web hook with the Bot URL and the Verify Token (set in the previous step)
