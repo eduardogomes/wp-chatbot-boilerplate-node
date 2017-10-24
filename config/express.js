@@ -5,7 +5,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     compress = require('compression'),
     methodOverride = require('method-override'),
-    handleBars = require('express-handlebars');
+    handleBars = require('express-handlebars'), 
+    xHub = require('express-x-hub');
 
 module.exports = function(app, config) {
   var env = config.env || 'development';
@@ -24,6 +25,8 @@ module.exports = function(app, config) {
   app.use(favicon(config.root + '/public/img/favicon.ico'));
 
   app.use(logger('dev'));
+  
+  app.use(xHub({ algorithm: 'sha1', secret: config.verify_token }));  
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true

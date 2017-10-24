@@ -43,3 +43,4 @@ terraform
 # Various
 public/components
 .sass-cache
+.DS_Store
