@@ -16,11 +16,6 @@ router.get("/webhook/", function (req, res) {
 });
 
 router.post("/webhook/", function (req, res) {
-  
-  if(!req.isXHubValid()){ 
-    res.sendStatus(400); 
-    return;
-  }
 
   let messaging_events = req.body.entry[0].messaging;
 

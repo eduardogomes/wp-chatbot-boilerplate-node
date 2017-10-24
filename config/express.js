@@ -5,7 +5,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     compress = require('compression'),
     methodOverride = require('method-override'),
-    xHub = require('express-x-hub');
+    crypto = require('crypto'), 
+    config = require("./config");
 
 module.exports = function(app, config) {
   var env = config.env || 'development';
@@ -16,11 +17,11 @@ module.exports = function(app, config) {
 
   app.use(logger('dev'));
   
-  app.use(xHub({ algorithm: 'sha1', secret: config.verify_token }));  
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ verify: verifyRequest }));
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
@@ -29,11 +30,18 @@ module.exports = function(app, config) {
   controllers.forEach(function (controller) {
     require(controller)(app);
   });
-
-  app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
-
 };
+
+function getSignature(buf) {
+  var hmac = crypto.createHmac("sha1", config.app_secret);
+  hmac.update(buf, "utf-8");
+  return "sha1=" + hmac.digest("hex");
+}
+
+function verifyRequest(req, res, buf, encoding) {
+  var expected = req.headers['x-hub-signature'];
+  var calculated = getSignature(buf);
+  if (expected !== calculated) {
+    throw new Error("Invalid signature.");
+  }
+}
