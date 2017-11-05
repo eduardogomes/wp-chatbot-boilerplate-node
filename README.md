@@ -45,11 +45,10 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
     npm install
     ```
 
-6. Create a new Heroku instance and push the code to the cloud.  We also set an environment variable called ```IS_HEROKU```, because this boilerplate works on any type of host but has some extra smarts for Heroku deployment.
+6. Create a new Heroku instance and push the code to the cloud.
 
     ```
     heroku create
-    heroku config:set IS_HEROKU=1
     git push heroku master
     ```  
 
@@ -78,15 +77,6 @@ NODE_ENV=development
 PAGE_ACCESS_TOKEN=Bearer <access token, created on step 6 in the format "Bearer TOKEN">
 VERIFY_TOKEN= <a unique string to identity your bot, e.g.: dev-workshop-bot-token>
 APP_SECRET= <a hexadecimal value created by workplace, used to sign the requests to secure they are coming from Facebook servers>
-PORT=5000
-```
-
-### Set the missing configuration values in your Heroku environment
-
-```
-heroku config:set PAGE_ACCESS_TOKEN=Bearer <access token, the same that was set in the ```.env``` file>
-heroku config:set VERIFY_TOKEN=<a unique string to identity your bot, e.g.: dev-workshop-bot-token, the same that was set in the ```.env``` file>
-heroku config:set APP_SECRET=<a hexadecimal value created by workplace, e.g.: e04879d854fc4d27b6765534dd8ca3e2, the same that was set in the ```.env``` file>
 ```
 
 8. Configure the messaging web hook with the Bot URL and the Verify Token (set in the previous step)

@@ -88,8 +88,9 @@ module.exports = {
   "updateGroup": function updateGroup(id, name, description) {
     let url = graphAPIUrl + id;
     let qs =  {
-                "name": name,
-                "description": description, 
+                // "name": name,
+                // "description": description, 
+                "privacy": "CLOSED",
               };
     return rp(common.createPostOptions(url,qs));
   },
